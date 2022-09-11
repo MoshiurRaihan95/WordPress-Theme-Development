@@ -42,8 +42,8 @@ function sunset_sidebar_options(){
 }
 function sunset_sidebar_name(){
     $firstName = esc_attr(get_option('first_name'));
-    $firstName = esc_attr(get_option('last_name'));
-    echo '<input type="text" name="first_name" value="'.$firstName.'" placeholder="First Name"> <input type="text" name="last_name" value="'.$firstName.'" placeholder="Last Name">';
+    $lastName = esc_attr(get_option('last_name'));
+    echo '<input type="text" name="first_name" value="'.$firstName.'" placeholder="First Name"> <input type="text" name="last_name" value="'.$lastName.'" placeholder="Last Name">';
 }
 function sunset_sidebar_description(){
     $description = esc_attr(get_option('user_description'));
@@ -62,11 +62,11 @@ function sunset_sidebar_gplus(){
     echo '<input type="text" name="gplus_handler" value="'.$gplus.'" placeholder="Google Plus">';
 }
 //Sanitization Settings
-function sunset_sanitize_twitter_handler($input){
-    $output = sanitize_text_field($input);
-    $output = str_repeat('@', '', $output);
-    return $output;
-}
+// function sunset_sanitize_twitter_handler($input){
+//     $output = sanitize_text_field($input);
+//     $output = str_repeat('@', '', $output);
+//     return $output;
+// }
 
 // Custom Seting Options
 function sunset_theme_create_page(){
