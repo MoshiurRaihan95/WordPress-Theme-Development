@@ -23,13 +23,17 @@ add_action('admin_menu', 'sunset_add_admin_page');
 
 // Function Custom Setting
 function sunset_custom_settings(){
+    register_setting('sunset-setting-group', 'profile_picture');
     register_setting('sunset-setting-group', 'first_name');
     register_setting('sunset-setting-group', 'last_name');
     register_setting('sunset-setting-group', 'user_description');
     register_setting('sunset-setting-group', 'twitter_handler', 'sunset_sanitize_twitter_handler');
     register_setting('sunset-setting-group', 'facebook_handler');
     register_setting('sunset-setting-group', 'gplus_handler');
-    add_settings_section('sunset-sidebar-options','Sidebar option','sunset_sidebar_options', 'sunset_custom_option' );
+    
+    add_settings_section('sunset-sidebar-options','Sidebar option','sunset_sidebar_options', 'sunset_custom_option' ,'sunset-sidebar-options');
+
+    add_settings_field('sidebar-profile-picture','Profile Picture','sunset_sidebar_profile', 'sunset_custom_option' ,'sunset-sidebar-options');
     add_settings_field('sidebar-name', 'Full Name', 'sunset_sidebar_name', 'sunset_custom_option' ,'sunset-sidebar-options');
     add_settings_field('sidebar-description', 'Description', 'sunset_sidebar_description', 'sunset_custom_option' ,'sunset-sidebar-options');
     add_settings_field('sidebar-twitter', 'Twitter Handler', 'sunset_sidebar_twitter', 'sunset_custom_option' ,'sunset-sidebar-options');
@@ -40,6 +44,12 @@ function sunset_custom_settings(){
 function sunset_sidebar_options(){
     echo 'Customize your sidebar information';
 }
+function sunset_sidebar_profile(){
+    $profile_picture = esc_attr(get_option('profile_picture'));
+    echo'<input type="button" class="button button-secondary" value="Upload profile picture" id="upload-button"/>';
+    echo '<input type="hidden" name="profile_picture" value="'.$profile_picture.'" />';
+}
+
 function sunset_sidebar_name(){
     $firstName = esc_attr(get_option('first_name'));
     $lastName = esc_attr(get_option('last_name'));
