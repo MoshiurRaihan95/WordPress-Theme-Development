@@ -45,9 +45,9 @@ function sunset_sidebar_options(){
     echo 'Customize your sidebar information';
 }
 function sunset_sidebar_profile(){
-    $profile_picture = esc_attr(get_option('profile_picture'));
+    $picture = esc_attr(get_option('profile_picture'));
     echo'<input type="button" class="button button-secondary" value="Upload profile picture" id="upload-button"/>';
-    echo '<input type="hidden" name="profile_picture" value="'.$profile_picture.'" />';
+    echo '<input type="hidden" id="profile-picture" name="profile_picture" value="'.$picture.'"/>';
 }
 
 function sunset_sidebar_name(){

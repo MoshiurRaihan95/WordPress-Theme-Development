@@ -19,6 +19,12 @@ jQuery(document).ready(function ($) {
       },
       multiple: false,
     });
+
+    mediaUploader.on('select', function(){
+      attachment = mediaUploader.state().get('selection').first().toJSON();
+      $('#profile-picture').val(attachment.url);
+    });
+    mediaUploader.open();
   });
 });
 
