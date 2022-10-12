@@ -12,27 +12,23 @@ Domain Path: /languages/
 */
 
 //Plugin Activation Hook
-function wordcount_activation_hook()
-{
+function wordcount_activation_hook(){
 }
 register_activation_hook(__File__, "wordcount_activation_hook");
 
 //Plugin Deactivation Hook
-function wordcount_deactivation_hook()
-{
+function wordcount_deactivation_hook(){
 }
 register_deactivation_hook(__File__, "wordcount_deactivation_hook");
 
 //Load Text Domain
-function wordcount_load_textdomain()
-{
+function wordcount_load_textdomain(){
     load_plugin_textdomain('word-conter', false, dirname(__FILE__) . "/languages");
 }
 add_action("plugin_loaded", 'wordcount_load_textdomain');
 
 
-function wordcount_count_words($content)
-{
+function wordcount_count_words($content){
     $stripped_content = strip_tags($content);
     $wordn = str_word_count($stripped_content);
     $label = __('Total Number Of Words', 'word-conter');
@@ -43,8 +39,7 @@ function wordcount_count_words($content)
 }
 add_filter('the_content', "wordcount_count_words");
 
-function wordcount_reading_time($content)
-{
+function wordcount_reading_time($content){
     $stripped_content = strip_tags($content);
     $wordn = str_word_count($stripped_content);
     $reding_minute = floor($wordn / 200);
@@ -56,7 +51,6 @@ function wordcount_reading_time($content)
         $tag = apply_filters("wordcount_readingtime_tag", 'h4', 'h4');
         $content .= sprintf('<%s>%s: %s minutes %s seconds</%s>', $tag, $label, $reding_minute, $reding_seconds, $wordn, $tag);
     }
-
     return $content;
 }
 add_filter('the_content', "wordcount_reading_time");
