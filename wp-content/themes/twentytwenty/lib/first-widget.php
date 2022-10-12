@@ -91,6 +91,31 @@ class FirstWidgets extends Widget_Base
                 'label_block' => true,
             ]
         );
+        //add alignment control
+        $this->add_control(
+            'title_alignment',
+            [
+                'label' => __('Alignment', 'custom_widget'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => esc_html__('Left', 'custom-widget'),
+                        'icon' => 'eicon-text-align-left',
+                    ],
+                    'center' => [
+                        'title' => esc_html__('Center', 'custom-widget'),
+                        'icon' => 'eicon-text-align-center',
+                    ],
+                    'right' => [
+                        'title' => esc_html__('Right', 'custom-widget'),
+                        'icon' => 'eicon-text-align-right',
+                    ],
+                ],
+                'selector' => [
+                    '{{WRAPPER}}' => 'text-align: {{VALUE}};',
+                ],
+            ]
+        );
         //end control
         $this->end_controls_section();
 
@@ -117,7 +142,29 @@ class FirstWidgets extends Widget_Base
                 ],
             ]
         );
-        //end control		
+        //add alignment control
+        $this->add_control(
+            'description_alignment',
+            [
+                'label' => __('Alignment', 'custom_widget'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => esc_html__('Left', 'custom-widget'),
+                        'icon' => 'eicon-text-align-left',
+                    ],
+                    'center' => [
+                        'title' => esc_html__('Center', 'custom-widget'),
+                        'icon' => 'eicon-text-align-center',
+                    ],
+                    'right' => [
+                        'title' => esc_html__('Right', 'custom-widget'),
+                        'icon' => 'eicon-text-align-right',
+                    ],
+                ],
+            ]
+        );
+        //end control
         $this->end_controls_section();
 
 
@@ -129,18 +176,34 @@ class FirstWidgets extends Widget_Base
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
+        //add style control
+        $this->add_control(
+            'style_content',
+            [
+                'label' => __('Image Style', 'custom-widget'),
+            ]
+        );
         //end style control
         $this->end_controls_section();
-
     }
 
     protected function render()
     {
+        $settings = $this->get_settings_for_display();
+        $img = !empty($settings['image_content']['url']) ? $settings['image_content']['url'] : '';
 
+        // Get image url
+        echo '<img src="' . esc_url($img) . '" alt="">';
+        echo '<h4 class="alignment">' . $settings['title_content'] . '</h4>';
+        echo '<p>' . $settings['item_description'] . '</p>';
+
+        // Get image by id
+        //echo wp_get_attachment_image( $settings['image']['id'], 'thumbnail' );
     }
 
-    // protected function content_template() {
-
+    // protected function content_template()
+    // {
+    
     // }
 }
 Plugin::instance()->widgets_manager->register_widget_type(new FirstWidgets);
