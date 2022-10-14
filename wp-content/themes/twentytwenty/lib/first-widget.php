@@ -67,6 +67,17 @@ class FirstWidgets extends Widget_Base
                 'label_block' => true,
             ]
         );
+        //Image Resize Control
+        $this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			[
+				'name' => 'thumbnail', // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `thumbnail_size` and `thumbnail_custom_dimension`.
+				'exclude' => [ 'custom' ],
+				'include' => [],
+				'default' => 'large',
+			]
+		);
+
         //end controls
         $this->end_controls_section();
 
@@ -91,28 +102,31 @@ class FirstWidgets extends Widget_Base
                 'label_block' => true,
             ]
         );
+        
         //add alignment control
-        $this->add_control(
+        $this->add_responsive_control(
             'title_alignment',
             [
                 'label' => __('Alignment', 'custom_widget'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__('Left', 'custom-widget'),
+                        'title' => __('Left', 'custom-widget'),
                         'icon' => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__('Center', 'custom-widget'),
+                        'title' => __('Center', 'custom-widget'),
                         'icon' => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__('Right', 'custom-widget'),
+                        'title' => __('Right', 'custom-widget'),
                         'icon' => 'eicon-text-align-right',
                     ],
                 ],
+                'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                'section_title' => 'title_alignment-%s',
                 'selector' => [
-                    '{{WRAPPER}}' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} h4' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -143,24 +157,29 @@ class FirstWidgets extends Widget_Base
             ]
         );
         //add alignment control
-        $this->add_control(
+        $this->add_responsive_control(
             'description_alignment',
             [
                 'label' => __('Alignment', 'custom_widget'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__('Left', 'custom-widget'),
+                        'title' => __('Left', 'custom-widget'),
                         'icon' => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__('Center', 'custom-widget'),
+                        'title' => __('Center', 'custom-widget'),
                         'icon' => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__('Right', 'custom-widget'),
+                        'title' => __('Right', 'custom-widget'),
                         'icon' => 'eicon-text-align-right',
                     ],
+                ],
+                'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                'section_description' => 'description_alignment-%s',
+                'selector' => [
+                    '{{WRAPPER}} p' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -168,7 +187,7 @@ class FirstWidgets extends Widget_Base
         $this->end_controls_section();
 
 
-        //Style Tab 
+        //Style Control Tab 
         $this->start_controls_section(
             'section_style',
             [
@@ -176,14 +195,51 @@ class FirstWidgets extends Widget_Base
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
+        
         //add style control
         $this->add_control(
-            'style_content',
+            'title_options',
             [
-                'label' => __('Image Style', 'custom-widget'),
+                'label' => __('Title Style', 'custom-widget'),
+                'type' => Controls_Manager::HEADING,
+                'separator' => 'before',
             ]
         );
-        //end style control
+        //Color Control
+        $this->add_control(
+            'title_color',
+            [
+                'label' => __('Color', 'custom-widget'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#000',
+                'selectors' => [
+                    '{{WRAPPER}} h4' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
+        //Typrography Control
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'title_typography',
+                'selector' => '{{WRAPPER}} h4',
+            ]
+        );
+        $this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name' => 'border',
+				'selector' => '{{WRAPPER}} img',
+			]
+		);
+        $this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name' => 'border-radius',
+				'selector' => '{{WRAPPER}} img',
+			]
+		);
+        //end style control;
         $this->end_controls_section();
     }
 
@@ -191,11 +247,12 @@ class FirstWidgets extends Widget_Base
     {
         $settings = $this->get_settings_for_display();
         $img = !empty($settings['image_content']['url']) ? $settings['image_content']['url'] : '';
-
+        //echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', '$img' );
+        
         // Get image url
         echo '<img src="' . esc_url($img) . '" alt="">';
-        echo '<h4 class="alignment">' . $settings['title_content'] . '</h4>';
-        echo '<p>' . $settings['item_description'] . '</p>';
+        echo '<h4 class="section_ttile">' . $settings['title_content'] . '</h4>';
+        echo '<p  class="section_description">' . $settings['item_description'] . '</p>';
 
         // Get image by id
         //echo wp_get_attachment_image( $settings['image']['id'], 'thumbnail' );
