@@ -77,6 +77,32 @@ class FirstWidgets extends Widget_Base
 				'default' => 'large',
 			]
 		);
+        $this->add_responsive_control(
+            'img_alignment',
+            [
+                'label' => __('Alignment', 'custom_widget'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => __('Left', 'custom-widget'),
+                        'icon' => 'eicon-text-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', 'custom-widget'),
+                        'icon' => 'eicon-text-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Right', 'custom-widget'),
+                        'icon' => 'eicon-text-align-right',
+                    ],
+                ],
+                'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                'img-alignment' => 'img_alignment-%s',
+                'selector' => [
+                    '{{WRAPPER}} img' => 'text-align: {{VALUE}};',
+                ],
+            ]
+        );
 
         //end controls
         $this->end_controls_section();
@@ -232,13 +258,19 @@ class FirstWidgets extends Widget_Base
 				'selector' => '{{WRAPPER}} img',
 			]
 		);
-        $this->add_group_control(
-			Group_Control_Border::get_type(),
-			[
-				'name' => 'border-radius',
-				'selector' => '{{WRAPPER}} img',
-			]
-		);
+       //Image border radius contorl
+        $this->add_responsive_control(
+            'img_border_radius',
+            [
+                'label' => __('Border Radius', 'custom-widget'),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%', 'em' ],
+                'selectors' => [
+                    '{{WRAPPER}} img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+                
+            ]
+        );
         //end style control;
         $this->end_controls_section();
     }
