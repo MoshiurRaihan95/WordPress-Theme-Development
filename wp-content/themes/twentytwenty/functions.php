@@ -33,6 +33,11 @@
  *
  * @since Twenty Twenty 1.0
  */
+
+
+//Shortcode file link here
+require ('shortcode.php');
+
 function twentytwenty_theme_support() {
 
 	// Add default posts and comments RSS feed links to head.

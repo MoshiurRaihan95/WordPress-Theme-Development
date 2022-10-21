@@ -56,8 +56,6 @@ function sunset_theme_options(){
 }
 
 
-
-
 function sunset_sidebar_options(){
     echo 'Customize your sidebar information';
 }
@@ -88,6 +86,7 @@ function sunset_sidebar_gplus(){
     $gplus = esc_attr(get_option('gplus_handler'));
     echo '<input type="text" name="gplus_handler" value="'.$gplus.'" placeholder="Google Plus">';
 }
+
 //Sanitization Settings
 // function sunset_sanitize_twitter_handler($input){
 //     $output = sanitize_text_field($input);
