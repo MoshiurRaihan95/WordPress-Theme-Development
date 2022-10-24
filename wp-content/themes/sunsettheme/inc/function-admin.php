@@ -45,6 +45,7 @@ function sunset_custom_settings(){
     //Theme Support Option
     register_setting('sunset-theme-support', 'post-formats', 'sunset_post_formats_callback');
     add_settings_section('sunset-theme-options', 'Theme Optons', 'sunset_theme_options', 'sunset_theme_support_page');
+    add_settings_field('post-formats', 'Post Formats', 'sunset_post_formats', 'sunset_theme_support_page', 'sunset-theme-options');
 }
 
 //Post formats callback Function
@@ -55,7 +56,16 @@ function sunset_theme_options(){
     echo 'Activate and deactivate spacific theme support options';
 }
 
+function sunset_post_formats(){
+    $formats = array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat');
+    $output = '';
+    // foreach ($formats as $format){
+    //     $output .= '<label><input type="checkbox" id="'.$format.'" name="'.$format.'" value="1"> '.$format.'</label><br>;
+    // }
+    // echo $output;
+}
 
+//Sidebar Options Functions
 function sunset_sidebar_options(){
     echo 'Customize your sidebar information';
 }
